@@ -64,6 +64,7 @@ MastodonCommand.setup do |status|
 
   ])
   status = osaka.convert(status) if osaka.match(status)
+  status
 end
 ```
 

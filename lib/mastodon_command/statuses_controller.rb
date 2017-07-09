@@ -1,6 +1,4 @@
-# モンキーパッチ
-class Api::V1::StatusesController < Api::BaseController
-
+module ApiV1StatusesControllerPatch
   def create
     status = MastodonCommand.convert_toot(status_params[:status])
     @status = PostStatusService.new.call(current_user.account,
@@ -14,11 +12,5 @@ class Api::V1::StatusesController < Api::BaseController
                                          idempotency: request.headers['Idempotency-Key'])
 
     render :show
-  end
-
-  private
-  # 使用されているprivateメソッドも入れておかないとモンキーパッチが動かなかった
-  def status_params
-    params.permit(:status, :in_reply_to_id, :sensitive, :spoiler_text, :visibility, media_ids: [])
   end
 end

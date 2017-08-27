@@ -11,6 +11,6 @@ module ApiV1StatusesControllerPatch
                                          application: doorkeeper_token.application,
                                          idempotency: request.headers['Idempotency-Key'])
 
-    render :show
+    render json: @status, serializer: REST::StatusSerializer
   end
 end

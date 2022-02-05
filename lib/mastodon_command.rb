@@ -2,7 +2,7 @@ require "mastodon_command/version"
 require "mastodon_command/convert"
 require "mastodon_command/convert_random"
 require "mastodon_command/convert_lang"
-require "mastodon_command/statuses_controller"
+require "mastodon_command/statuses_controller_patch"
 
 module MastodonCommand
   def self.setup(&proc)
@@ -19,7 +19,7 @@ module MastodonCommand
     end
 
     # Monkey patch
-    Api::V1::StatusesController.prepend(ApiV1StatusesControllerPatch)
+    Api::V1::StatusesController.prepend(MastodonCommand::StatusesControllerPatch)
   end
 end
 

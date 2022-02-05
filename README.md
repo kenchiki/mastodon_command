@@ -26,45 +26,49 @@ Or install it yourself as:
 config\initializers\mastodon_command.rb
 
 ```ruby
-MastodonCommand.setup do |status|
-  # おみくじ機能
-  fortune = MastodonCommand::Random.new('[ 　\n]?#(おみくじ|占い|運勢)[ 　\n]?', %w(大吉 中吉 小吉 吉 半吉 凶 大凶))
-  status = fortune.convert(status) if fortune.match(status)
+Rails.application.configure do
+  config.after_initialize do
+    MastodonCommand.setup do |status|
+      # おみくじ機能
+      fortune = MastodonCommand::Random.new('[ 　\n]?#(おみくじ|占い|運勢)[ 　\n]?', %w(大吉 中吉 小吉 吉 半吉 凶 大凶))
+      status = fortune.convert(status) if fortune.match(status)
 
-  # 大阪弁機能
-  osaka = MastodonCommand::Lang.new('[ 　\n]?#(大阪弁)[ 　\n]?', [
-    {
-      pattern: 'です',
-      replace: 'やで'
-    },
-    {
-      pattern: 'する',
-      replace: 'しよる'
-    },
-    {
-      pattern: 'だった',
-      replace: 'やった'
-    },
-    {
-      pattern: 'すごい',
-      replace: 'えらい'
-    },
-    {
-      pattern: '疲れた',
-      replace: 'しんどい'
-    },
-    {
-      pattern: 'ない',
-      replace: 'あれへん'
-    },
-    {
-      pattern: '(バカ|ばか)',
-      replace: 'アホ'
-    },
+      # 大阪弁機能
+      osaka = MastodonCommand::Lang.new('[ 　\n]?#(大阪弁)[ 　\n]?', [
+        {
+          pattern: 'です',
+          replace: 'やで'
+        },
+        {
+          pattern: 'する',
+          replace: 'しよる'
+        },
+        {
+          pattern: 'だった',
+          replace: 'やった'
+        },
+        {
+          pattern: 'すごい',
+          replace: 'えらい'
+        },
+        {
+          pattern: '疲れた',
+          replace: 'しんどい'
+        },
+        {
+          pattern: 'ない',
+          replace: 'あれへん'
+        },
+        {
+          pattern: '(バカ|ばか)',
+          replace: 'アホ'
+        },
 
-  ])
-  status = osaka.convert(status) if osaka.match(status)
-  status
+      ])
+      status = osaka.convert(status) if osaka.match(status)
+      status
+    end
+  end
 end
 ```
 

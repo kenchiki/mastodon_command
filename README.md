@@ -1,31 +1,22 @@
 # MastodonCommand
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mastodon_command`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+- おみくじ機能や大阪弁機能などをつけることができます。
+- ローカルでマストドンのバージョン3.4.6にて動作を確認済み
+（このプログラムを使って問題が起こっても保証はできないので予めご了承ください🙇‍♂️）
 
 ## Installation
-
-Add this line to your application's Gemfile:
 
 ```ruby
 gem 'mastodon_command'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install mastodon_command
-
 ## Usage
 
-- Make initializers file  
-config\initializers\mastodon_command.rb
+- 下記に設定ファイルを作成し、マストドンを再起動すると`#おみくじ`などのタグをつけてトゥートすることで動作確認できます
+
 
 ```ruby
+# config\initializers\mastodon_command.rb
+
 Rails.application.configure do
   config.after_initialize do
     MastodonCommand.setup do |status|
@@ -88,4 +79,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mastodon_command.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kenchiki/mastodon_command.

@@ -6,7 +6,7 @@
 ## Installation
 
 ```ruby
-gem 'mastodon_command'
+gem 'mastodon_command', '0.1.9'
 ```
 
 ## Usage

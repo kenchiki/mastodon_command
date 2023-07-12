@@ -1,7 +1,6 @@
 module MastodonCommand
-  class Convert
-    attr_accessor :pattern
-    attr_accessor :replaces
+  class Converter
+    attr_accessor :pattern, :replaces
 
     def initialize(pattern, replaces)
       @pattern = pattern

@@ -1,25 +1,14 @@
-require "mastodon_command/version"
-require "mastodon_command/convert"
-require "mastodon_command/convert_random"
-require "mastodon_command/convert_lang"
-require "mastodon_command/statuses_controller_patch"
+require 'mastodon_command/version'
+require 'mastodon_command/converter'
+require 'mastodon_command/random_converter'
+require 'mastodon_command/lang_converter'
+require 'mastodon_command/statuses_controller_patch'
 
 module MastodonCommand
   def self.setup(&proc)
-    # create function for Monkey patch
-    extend self
-    (
-    class << self;
-      self
-    end).module_eval do
-      define_method 'convert_toot', &proc
-      # define_method 'b' do
-      #   p 'b'
-      # end
-    end
+    define_singleton_method(:convert_toot, &proc)
 
     # Monkey patch
     Api::V1::StatusesController.prepend(MastodonCommand::StatusesControllerPatch)
   end
 end
-

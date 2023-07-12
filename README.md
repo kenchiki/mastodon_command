@@ -1,12 +1,12 @@
 # MastodonCommand
 - おみくじ機能や大阪弁機能などをつけることができます。
-- ローカルでマストドンのバージョン3.4.6にて動作を確認済み
+- ローカルでマストドンのバージョン3.5.0にて動作を確認済み
 （このプログラムを使って問題が起こっても保証はできないので予めご了承ください🙇‍♂️）
 
 ## Installation
 
 ```ruby
-gem 'mastodon_command', '0.1.9'
+gem 'mastodon_command', '0.1.10'
 ```
 
 ## Usage
@@ -21,11 +21,11 @@ Rails.application.configure do
   config.after_initialize do
     MastodonCommand.setup do |status|
       # おみくじ機能
-      fortune = MastodonCommand::Random.new('[ 　\n]?#(おみくじ|占い|運勢)[ 　\n]?', %w(大吉 中吉 小吉 吉 半吉 凶 大凶))
+      fortune = MastodonCommand::RandomConverter.new('[ 　\n]?#(おみくじ|占い|運勢)[ 　\n]?', %w(大吉 中吉 小吉 吉 半吉 凶 大凶))
       status = fortune.convert(status) if fortune.match(status)
 
       # 大阪弁機能
-      osaka = MastodonCommand::Lang.new('[ 　\n]?#(大阪弁)[ 　\n]?', [
+      osaka = MastodonCommand::LangConverter.new('[ 　\n]?#(大阪弁)[ 　\n]?', [
         {
           pattern: 'です',
           replace: 'やで'

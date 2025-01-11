@@ -1,3 +1,3 @@
 module MastodonCommand
-  VERSION = '0.1.10'.freeze
+  VERSION = '4.2.3'.freeze
 end

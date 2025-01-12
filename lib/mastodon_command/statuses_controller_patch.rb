@@ -19,13 +19,9 @@ module MastodonCommand
         with_rate_limit: true
       )
 
-      render json: @status, serializer: @status.is_a?(ScheduledStatus) ? REST::ScheduledStatusSerializer : REST::StatusSerializer
+      render json: @status, serializer: serializer_for_status
     rescue PostStatusService::UnexpectedMentionsError => e
-      unexpected_accounts = ActiveModel::Serializer::CollectionSerializer.new(
-        e.accounts,
-        serializer: REST::AccountSerializer
-      )
-      render json: { error: e.message, unexpected_accounts: unexpected_accounts }, status: 422
+      render json: unexpected_accounts_error_json(e), status: 422
     end
   end
 end

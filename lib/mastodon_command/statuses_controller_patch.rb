@@ -6,6 +6,8 @@ module MastodonCommand
         current_user.account,
         text: status,
         thread: @thread,
+        quoted_status: @quoted_status,
+        quote_approval_policy: quote_approval_policy,
         media_ids: status_params[:media_ids],
         sensitive: status_params[:sensitive],
         spoiler_text: status_params[:spoiler_text],
